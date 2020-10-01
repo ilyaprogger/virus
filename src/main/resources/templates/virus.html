@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вирусы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <h1>Таблица "Вирусы"</h1>
+    <table border="5">
+        <tr class="alert alert-info mt-2">
+            <th>Id</th>
+            <th>Тип вируса</th>
+            <th>Название вируса</th>
+            <th>Вероятность передачи</th>
+            <th>Средний срок заражения(дней)</th>
+            <th>Смертность - %</th>
+            <th>Вероятность повторного ззаражения - %</th>
+        </tr>
+        <div th:each="virus : ${viruses} ">
+            <tr>
+                <td th:text="${virus.id}"></td>
+                <td th:text="${virus.virusType}"></td>
+                <td th:text="${virus.virusName}"></td>
+                <td th:text="${virus.chanceOfInfection}"></td>
+                <td th:text="${virus.averageTimeOfInfection}"></td>
+                <td th:text="${virus.mortality}"></td>
+                <td th:text="${virus.chanceOfReInfection}"></td>
+            </tr>
+        </div>
+    </table>
+    <form action="/virus" method="post">
+        <label>
+            <input type="number" name="id" placeholder="Удаление вируса" class="form-control">
+        </label>
+        <label>
+            <button type="submit" class="btn btn-success">Удалить</button>
+        </label>
+    </form>
+</div>
+</body>
+</html>

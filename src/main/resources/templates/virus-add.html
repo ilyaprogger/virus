@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вирусы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5 mb-5">
+    <h1>Добавление вируса</h1>
+    <form action="/virus/add" method="post">
+        <label>
+            <input th:type="VirusType" name="virusType" placeholder="Тип вируса" class="form-control">
+        </label><br/>
+        <label>
+            <input type="text" name="virusName" placeholder="Название вируса" class="form-control">
+        </label><br/>
+        <label>
+            <input type="number" name="chanceOfInfection" placeholder="Шанс заражения" class="form-control">
+        </label><br/>
+        <label>
+            <input type="number" name="averageTimeOfInfection" placeholder="Средний срок заражения(дней)" class="form-control">
+        </label><br/>
+        <label>
+            <input type="number" name="mortality" placeholder="Смертность %" class="form-control">
+        </label><br/>
+        <label>
+            <input type="number" name="chanceOfReInfection" placeholder="Шанс повторного заражения %" class="form-control">
+        </label><br/>
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

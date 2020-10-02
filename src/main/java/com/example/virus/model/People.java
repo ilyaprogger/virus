@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 public class People {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     public String getUnknownDeath() {
@@ -25,7 +25,7 @@ public class People {
 
     String healthy;
     String unknownDeath;
-    private Date death;
+    private Date infectionDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
@@ -39,17 +39,17 @@ public class People {
         this.healthy = healthy;
     }
 
-    public Date getDeath() {
-        return death;
+    public Date getInfectionDate() {
+        return infectionDate;
     }
 
-    public void setDeath(Date death) {
-        this.death = death;
+    public void setInfectionDate(Date infectionDate) {
+        this.infectionDate = infectionDate;
     }
 
-    public People(String healthy, Date death) {
+    public People(String healthy, Date infectionDate) {
         this.healthy = healthy;
-        this.death = death;
+        this.infectionDate = infectionDate;
     }
 
     public People() {
@@ -64,7 +64,7 @@ public class People {
         return "People{" +
                 "id=" + id +
                 ", healthy='" + healthy + '\'' +
-                ", death=" + death +
+                ", death=" + infectionDate +
                 '}';
     }
 
@@ -72,11 +72,11 @@ public class People {
         this.id = id;
     }
 
-    //public Illness getIllness() {
-    //    return illness;
-    //}
+    public Illness getIllness() {
+        return illness;
+    }
 
-    //public void setIllness(Illness illness) {
-    //    this.illness = illness;
-    //}
+    public void setIllness(Illness illness) {
+        this.illness = illness;
+    }
 }

@@ -10,23 +10,25 @@ import com.example.virus.repos.VirusesRepo;
 import java.util.*;
 
 public class Generate {
-    private final int POPULATION = 11;
+    private final int POPULATION = 10;
 
     IllnessRepo illnessRepo;
     PeopleRepo peopleRepo;
     People people;
+    List<Long> list = new ArrayList<>();
+
 
     public Generate(PeopleRepo peopleRepo) {
         this.peopleRepo = peopleRepo;
     }
 
     public void generate() {
+        list = new ArrayList<>();
         if (peopleRepo.count() != 0) {
             peopleRepo.deleteAll();
         }
         for (long i = 1; i < POPULATION; i++) {
             people = new People();
-            people.setId(i);
             people.setHealthy("Здоров");
             people.setInfectionDate(new Date(0));
             peopleRepo.save(people);
@@ -34,21 +36,26 @@ public class Generate {
     }
 
     public void generateInfect(VirusesRepo virusesRepo, long id, int count) {
+        Iterable<People> peopler = peopleRepo.findAll();
+        long counter = peopler.iterator().next().getId();
+        for (int i = 0; i < POPULATION; i++) {
+            list.add(counter + i);
+            System.out.println(list.get(i));
+        }
         Viruses viruses = virusesRepo.findById(id).orElseThrow();
         Random random = new Random();
-        Set<Long> countset = new HashSet<>();
+        Illness illness = new Illness();
+        illness.setVirus(viruses.getVirusName());
+        illness.setData(new Date());
+        illness.setStage((byte) 1);
         for (int i = 0; i < count; i++) {
-            long rand = 70 + random.nextInt(11);
-            if (countset.contains(rand)) {
-                continue;
-            }
-            people = peopleRepo.findById(rand).orElseThrow();
-            if (people.getHealthy().equals("Здоров"))
+            int rand = random.nextInt(10);
+            people = peopleRepo.findById(list.get(rand)).orElseThrow();
+            if (people.getHealthy().equals("Здоров")) {
                 people.setHealthy(viruses.getVirusName());
-            else
-                people.setHealthy(people.getHealthy() + "," + viruses.getVirusName());
-            //people.setIllness(illness);
-            countset.add(rand);
+                people.setIllness(illness);
+            }
+
         }
         peopleRepo.save(people);
     }

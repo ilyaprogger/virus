@@ -7,7 +7,10 @@ import com.example.virus.repos.IllnessRepo;
 import com.example.virus.repos.PeopleRepo;
 import com.example.virus.repos.VirusesRepo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class Generate {
     private final int POPULATION = 11;
@@ -74,22 +77,20 @@ public class Generate {
                     int stage = people.getIllness().getStage() + 1;
                     illness.setStage(stage);
                     people.setIllness(illness);
-                    System.out.println(stage);
+                    //Допустим 6ая стадия репликация , тогда выполняем действия из условия.
                     if (stage > 6) {
                         if (stage < viruses.getAverageTimeOfInfection()) {
                             Random random = new Random();
                             if (random.nextInt(100) < viruses.getMortality()) {
                                 people.setHealthy("Умер");
                                 people.setInfectionDate(new Date());
-                                peopleRepo.save(people);
-                                flag[0] = false;
                             } else {
-                                people.setHealthy("Выздоровел");
+                                people.setHealthy("Здоров");
                                 people.setInfectionDate(new Date(0));
-                                peopleRepo.save(people);
-                                flag[0] = false;
                             }
-                        } else flag[0] = false;
+                            peopleRepo.save(people);
+                        }
+                        flag[0] = false;
                     }
                     try {
                         Thread.sleep(1000);

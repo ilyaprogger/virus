@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,6 +26,7 @@ public class VirusController {
     public String addVirus(Model model) {
         return "virus-add";
     }
+
     @PostMapping("/virus")
     public String deleteVirus(@RequestParam long id, Model model) {
         Viruses virus = virusesRepo.findById(id).orElseThrow();
@@ -39,8 +39,8 @@ public class VirusController {
             chanceOfInfection, @RequestParam int averageTimeOfInfection, @RequestParam int
                                     mortality, @RequestParam int chanceOfReInfection,
                             Model model) {
-      Viruses viruses = new Viruses(virusType,virusName, chanceOfInfection,
-              averageTimeOfInfection, mortality, chanceOfReInfection);
+        Viruses viruses = new Viruses(virusType, virusName, chanceOfInfection,
+                averageTimeOfInfection, mortality, chanceOfReInfection);
         virusesRepo.save(viruses);
 
         return "redirect:/virus";

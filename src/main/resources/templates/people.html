@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Вирусы</title>
+    <title>Население</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5"></div>
+<form action="/people" method="post">
+    <label>
+        <button type="submit" class="btn btn-success">Генерировать</button>
+    </label>
+</form>
+<form action="/people/infect" method="post">
+    <label>
+        <input type="number" name="virusId" placeholder="Id вируса" class="form-control">
+    </label>
+    <label>
+        <input type="number" name="count" placeholder="Кол-во зараженных" class="form-control">
+    </label>
+    <label>
+        <button type="submit" class="btn badge-danger">Заразить</button>
+    </label>
+</form>
     <h1>Таблица "Население"</h1>
+<table border="5">
+    <tr class="alert alert-info mt-2">
+        <th>Id</th>
+        <th>Вирус</th>
+        <th>Дата прекращения жизни</th>
+    </tr>
+    <div th:each="human : ${people} ">
+        <tr>
+            <td th:text="${human.id}"></td>
+            <td th:text="${human.healthy}"></td>
+            <td th:text="${human.unknownDeath}"></td>
+        </tr>
+    </div>
+</table>
 </body>
 </html>

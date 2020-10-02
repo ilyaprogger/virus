@@ -7,10 +7,7 @@ import com.example.virus.repos.IllnessRepo;
 import com.example.virus.repos.PeopleRepo;
 import com.example.virus.repos.VirusesRepo;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Generate {
     private final int POPULATION = 11;
@@ -39,21 +36,18 @@ public class Generate {
     public void generateInfect(VirusesRepo virusesRepo, long id, int count) {
         Viruses viruses = virusesRepo.findById(id).orElseThrow();
         Random random = new Random();
-        Illness illness =  new Illness();
-        illness.setVirus(viruses.getVirusName());
-        illness.setData(new Date());
-        illness.setStage((byte)1);
         Set<Long> countset = new HashSet<>();
         for (int i = 0; i < count; i++) {
-            long rand = 1 + random.nextInt(11);
-            if(countset.contains(rand)){
+            long rand = 70 + random.nextInt(11);
+            if (countset.contains(rand)) {
                 continue;
             }
             people = peopleRepo.findById(rand).orElseThrow();
-            if(!people.getHealthy().equals("Здоров"))
-            people.setHealthy(people.getHealthy() + "," + viruses.getVirusName());
-            else people.setHealthy(viruses.getVirusName());
-            people.setIllness(illness);
+            if (people.getHealthy().equals("Здоров"))
+                people.setHealthy(viruses.getVirusName());
+            else
+                people.setHealthy(people.getHealthy() + "," + viruses.getVirusName());
+            //people.setIllness(illness);
             countset.add(rand);
         }
         peopleRepo.save(people);

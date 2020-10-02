@@ -16,4 +16,5 @@ public class IllnessController {
         return "/illness";
     }
 
+
 }

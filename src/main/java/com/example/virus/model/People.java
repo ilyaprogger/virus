@@ -29,8 +29,6 @@ public class People {
     private String unknownDeath;
     private Date infectionDate;
 
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     Illness illness;
@@ -63,7 +61,6 @@ public class People {
         return id;
     }
 
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,4 +72,6 @@ public class People {
     public void setIllness(Illness illness) {
         this.illness = illness;
     }
+
+
 }

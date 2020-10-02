@@ -42,20 +42,25 @@ public class Generate {
         long counter = peopler.iterator().next().getId();
         for (int i = 0; i < POPULATION -1; i++) {
             list.add(counter + i);
-            System.out.println(list.get(i));
         }
+
         Viruses viruses = virusesRepo.findById(id).orElseThrow();
         Random random = new Random();
         Illness illness = new Illness();
         illness.setVirus(viruses.getVirusName());
         illness.setData(new Date());
         illness.setStage((byte) 1);
+
         for (int i = 0; i < count; i++) {
             int rand = random.nextInt(10);
             people = peopleRepo.findById(list.get(rand)).orElseThrow();
             if (people.getHealthy().equals("Здоров")) {
                 people.setHealthy(viruses.getVirusName());
                 people.setIllness(illness);
+            }
+            else{
+                people.setHealthy(people.getHealthy()+","+viruses.getVirusName());
+
             }
 
         }

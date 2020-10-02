@@ -1,10 +1,7 @@
 package com.example.virus.model;
 
 import javax.persistence.*;
-
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 public class People {
@@ -12,21 +9,12 @@ public class People {
     @GeneratedValue
     private Long id;
 
-    public String getUnknownDeath() {
-        return unknownDeath;
-    }
-
-    public void setUnknownDeath(String unknownDeath) {
-        this.unknownDeath = unknownDeath;
-    }
-
-    public People(String healthy, String unknownDeath) {
+    public People(String healthy) {
         this.healthy = healthy;
-        this.unknownDeath = unknownDeath;
+
     }
 
     private String healthy;
-    private String unknownDeath;
     private Date infectionDate;
 
     @OneToOne(cascade = CascadeType.ALL)

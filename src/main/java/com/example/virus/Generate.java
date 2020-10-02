@@ -10,11 +10,12 @@ import com.example.virus.repos.VirusesRepo;
 import java.util.*;
 
 public class Generate {
-    private final int POPULATION = 10;
+    private final int POPULATION = 11;
 
     IllnessRepo illnessRepo;
     PeopleRepo peopleRepo;
     People people;
+    Illness illness;
     List<Long> list = new ArrayList<>();
 
 
@@ -29,6 +30,7 @@ public class Generate {
         }
         for (long i = 1; i < POPULATION; i++) {
             people = new People();
+            people.setIllness(illness);
             people.setHealthy("Здоров");
             people.setInfectionDate(new Date(0));
             peopleRepo.save(people);
@@ -38,7 +40,7 @@ public class Generate {
     public void generateInfect(VirusesRepo virusesRepo, long id, int count) {
         Iterable<People> peopler = peopleRepo.findAll();
         long counter = peopler.iterator().next().getId();
-        for (int i = 0; i < POPULATION; i++) {
+        for (int i = 0; i < POPULATION -1; i++) {
             list.add(counter + i);
             System.out.println(list.get(i));
         }

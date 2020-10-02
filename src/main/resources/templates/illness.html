@@ -6,8 +6,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header th:insert="blocks/header :: header"></header>
-<div class="container mt-5"></div>
-
+<h1>Подробности болезни</h1>
+<div th:each="lis : ${list} ">
+    <tr>
+        <td th:text="'Название:' + ${lis.illness.virus}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Дата заболевания: ' + ${lis.illness.data}"></td>
+    </tr>
+    <tr>
+        <td th:text="'Стадия: ' + ${lis.illness.stage}"></td>
+    </tr>
+</div>
 </body>
 </html>

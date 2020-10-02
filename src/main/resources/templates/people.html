@@ -34,7 +34,7 @@
     <div th:each="human : ${people} ">
         <tr>
             <td th:text="${human.id}"></td>
-            <td><a th:href="'/illness'" th:text="${human.healthy}"></a></td>
+            <td><a th:href="'/people/' + ${human.id}" th:text="${human.healthy}"></a></td>
             <td th:text="${human.infectionDate}"></td>
         </tr>
     </div>

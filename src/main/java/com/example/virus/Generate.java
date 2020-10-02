@@ -13,6 +13,7 @@ public class Generate {
     private final int POPULATION = 11;
 
     IllnessRepo illnessRepo;
+    VirusesRepo virusesRepo;
     PeopleRepo peopleRepo;
     People people;
     Illness illness;
@@ -40,7 +41,7 @@ public class Generate {
     public void generateInfect(VirusesRepo virusesRepo, long id, int count) {
         Iterable<People> peopler = peopleRepo.findAll();
         long counter = peopler.iterator().next().getId();
-        for (int i = 0; i < POPULATION -1; i++) {
+        for (int i = 0; i < POPULATION - 1; i++) {
             list.add(counter + i);
         }
 
@@ -49,7 +50,7 @@ public class Generate {
         Illness illness = new Illness();
         illness.setVirus(viruses.getVirusName());
         illness.setData(new Date());
-        illness.setStage((byte) 1);
+        illness.setStage((byte) 0);
 
         for (int i = 0; i < count; i++) {
             int rand = random.nextInt(10);
@@ -57,13 +58,47 @@ public class Generate {
             if (people.getHealthy().equals("Здоров")) {
                 people.setHealthy(viruses.getVirusName());
                 people.setIllness(illness);
-            }
-            else{
-                people.setHealthy(people.getHealthy()+","+viruses.getVirusName());
-
+                lifeCycle(people, illness, viruses);
             }
 
         }
         peopleRepo.save(people);
+    }
+
+    //Не самый лучший способ создания потоков, но все же...
+    public void lifeCycle(People people, Illness illness, Viruses viruses) {
+        final boolean[] flag = {true};
+        Thread repeatedTask = new Thread() {
+            public void run() {
+                while (flag[0]) {
+                    int stage = people.getIllness().getStage() + 1;
+                    illness.setStage(stage);
+                    people.setIllness(illness);
+                    System.out.println(stage);
+                    if (stage > 6) {
+                        if (stage < viruses.getAverageTimeOfInfection()) {
+                            Random random = new Random();
+                            if (random.nextInt(100) < viruses.getMortality()) {
+                                people.setHealthy("Умер");
+                                people.setInfectionDate(new Date());
+                                peopleRepo.save(people);
+                                flag[0] = false;
+                            } else {
+                                people.setHealthy("Выздоровел");
+                                people.setInfectionDate(new Date(0));
+                                peopleRepo.save(people);
+                                flag[0] = false;
+                            }
+                        } else flag[0] = false;
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        repeatedTask.start();
     }
 }

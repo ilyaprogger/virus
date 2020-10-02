@@ -27,15 +27,15 @@ public class Illness {
         this.data = data;
     }
 
-    public byte getStage() {
+    public int getStage() {
         return stage;
     }
 
-    public void setStage(byte stage) {
+    public void setStage(int stage) {
         this.stage = stage;
     }
 
-    public Illness(String virus, Date data, byte stage) {
+    public Illness(String virus, Date data, int stage) {
         this.virus = virus;
         this.data = data;
         this.stage = stage;
@@ -43,7 +43,7 @@ public class Illness {
 
     private String virus;
     private Date data;
-    private byte stage;
+    private int stage;
 
     public Illness() {
     }

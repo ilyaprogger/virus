@@ -1,12 +1,6 @@
 package com.example.virus.model;
 
-import com.example.virus.repos.IllnessRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -16,8 +10,6 @@ public class Illness {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@OneToOne(mappedBy = "illness", cascade = CascadeType.ALL)
-    //private People people;
 
     public String getVirus() {
         return virus;
@@ -64,11 +56,4 @@ public class Illness {
         return id;
     }
 
-    //public People getPeople() {
-    //    return people;
-    //}
-
-    // public void setPeople(People people) {
-    //     this.people = people;
-    // }
 }

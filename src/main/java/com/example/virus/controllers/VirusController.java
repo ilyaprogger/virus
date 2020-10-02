@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class VirusController {
+
     @Autowired
     VirusesRepo virusesRepo;
 

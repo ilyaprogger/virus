@@ -3,6 +3,8 @@ package com.example.virus.model;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class People {
@@ -23,9 +25,11 @@ public class People {
         this.unknownDeath = unknownDeath;
     }
 
-    String healthy;
-    String unknownDeath;
+    private String healthy;
+    private String unknownDeath;
     private Date infectionDate;
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
@@ -59,14 +63,6 @@ public class People {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "People{" +
-                "id=" + id +
-                ", healthy='" + healthy + '\'' +
-                ", death=" + infectionDate +
-                '}';
-    }
 
     public void setId(Long id) {
         this.id = id;

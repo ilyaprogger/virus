@@ -31,7 +31,7 @@ public class Generate {
             people = new People();
             people.setId(i);
             people.setHealthy("Здоров");
-            people.setInfectionDate(new Date());
+            people.setInfectionDate(new Date(0));
             peopleRepo.save(people);
         }
     }
